@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import { LngLat as LngLatClass, Map as MapLibre, Marker, NavigationControl, setWorkerUrl, type GeoJSONSource } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import type { Feature, FeatureCollection, Point } from "geojson";
-import { AREA, AREA_CENTER, AREA_NAME, layerInEra, type EraId, type PlaceSummary } from "@/lib/data";
+import { AREA, AREA_CENTER, AREA_NAME, layerInEra, START, type EraId, type PlaceSummary } from "@/lib/data";
 import type { LngLat } from "@/lib/geo";
 import { COVERAGE_TILES, MAPILLARY } from "@/lib/mapillary";
 import { CLICKABLE_SOURCE_LAYERS, type MapFeature } from "@/lib/osm";
@@ -101,8 +101,8 @@ export default function MapView({ places, era, pin, flyTo, onClick, onHotspot }:
     const m = new MapLibre({
       container: container.current!,
       style: STYLE,
-      center: [60, 22],
-      zoom: Math.max(minZoom, window.innerWidth < 760 ? 0.6 : 1.6),
+      center: [START.lng, START.lat],
+      zoom: Math.max(minZoom, START.zoom - (window.innerWidth < 760 ? 1 : 0)),
       minZoom,
       maxZoom: 18.5,
       attributionControl: { compact: true },

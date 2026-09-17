@@ -40,6 +40,39 @@ a { color: var(--amber); }
 }
 .brand h1 { font-family: var(--serif); font-weight: 500; font-size: 26px; margin: 0; letter-spacing: -0.01em; }
 .brand p { margin: 2px 0 0; color: var(--muted); font-size: 13px; }
+/* ---------- search ---------- */
+.search { position: relative; flex: 1 1 300px; max-width: 420px; }
+.search input {
+  width: 100%; box-sizing: border-box; appearance: none;
+  background: var(--panel); border: 1px solid var(--line); border-radius: 999px;
+  padding: 10px 16px; font-size: 14px; color: var(--paper);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.25);
+}
+.search input::placeholder { color: var(--muted); }
+.search input:focus { outline: none; border-color: var(--amber); }
+.search-busy {
+  position: absolute; right: 14px; top: 13px; width: 13px; height: 13px; border-radius: 50%;
+  border: 2px solid var(--line); border-top-color: var(--amber); animation: spin 0.7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.search-results {
+  position: absolute; top: calc(100% + 6px); left: 0; right: 0; margin: 0; padding: 5px; list-style: none;
+  background: var(--panel); border: 1px solid var(--line); border-radius: 14px;
+  box-shadow: 0 10px 34px rgba(0, 0, 0, 0.4); max-height: 58vh; overflow-y: auto;
+}
+.search-results button {
+  display: block; width: 100%; text-align: left; background: none; border: 0;
+  border-radius: 10px; padding: 8px 10px; color: var(--paper);
+}
+.search-results button.on { background: rgba(231, 174, 98, 0.14); }
+.search-name { font-size: 14px; }
+.search-kind {
+  display: inline-block; margin-left: 7px; padding: 1px 7px; border-radius: 999px;
+  border: 1px solid var(--line); font-size: 10.5px; color: var(--muted); text-transform: lowercase;
+}
+.search-detail { display: block; font-size: 11.5px; color: var(--muted); margin-top: 2px; }
+.search-empty { padding: 9px 11px; font-size: 13px; color: var(--muted); }
+
 .surprise {
   background: var(--amber); color: #1b1108; border: 0; border-radius: 999px;
   padding: 9px 16px; font-weight: 600; font-size: 14px; white-space: nowrap;
@@ -55,6 +88,9 @@ a { color: var(--amber); }
   padding: 5px 11px; font-size: 12.5px; color: var(--muted); backdrop-filter: blur(6px);
 }
 .eras button.on { color: #1b1108; background: var(--paper); border-color: var(--paper); }
+/* How many places sit in each era, so an empty stretch of time reads as empty rather than broken. */
+.era-count { margin-left: 6px; font-size: 11px; opacity: 0.65; font-variant-numeric: tabular-nums; }
+.eras button.empty { opacity: 0.45; }
 
 .hint {
   position: absolute; left: 50%; bottom: 34px; transform: translateX(-50%); margin: 0;
@@ -153,6 +189,8 @@ a { color: var(--amber); }
   filter: sepia(calc(var(--depth) * 0.25)) contrast(1.02);
 }
 .card-media figcaption { font-size: 11px; color: var(--muted); padding: 6px 18px 0; }
+/* When the picture is of the place *then*, say so before the credit. */
+.media-year { display: block; color: var(--amber); font-size: 12px; letter-spacing: 0.03em; margin-bottom: 2px; }
 .card-media figcaption a { color: var(--muted); }
 .card-plate {
   margin: 0 18px; height: 150px; border-radius: 12px; border: 1px solid var(--line);
@@ -206,8 +244,14 @@ a { color: var(--amber); }
 }
 
 .debug {
-  position: absolute; left: 12px; bottom: 40px; max-width: 60vw; margin: 0; padding: 8px;
-  background: rgba(0, 0, 0, 0.8); color: #9f9; font-size: 10px; pointer-events: none; white-space: pre-wrap;
+  position: absolute; left: 12px; bottom: 40px; max-width: 60vw; padding: 8px; z-index: 6;
+  background: rgba(0, 0, 0, 0.8); color: #9f9; font-size: 10px;
+}
+.debug pre { margin: 0; white-space: pre-wrap; pointer-events: none; }
+/* The session log has to be able to leave a tester's device. */
+.debug-copy {
+  display: block; margin: 0 0 6px; background: #9f9; color: #041004; border: 0; border-radius: 4px;
+  padding: 3px 9px; font-size: 10px; font-weight: 700; cursor: pointer;
 }
 
 @keyframes slide { from { opacity: 0; transform: translateX(16px); } }
@@ -218,7 +262,11 @@ a { color: var(--amber); }
   .brand h1 { font-size: 21px; }
   .brand p { font-size: 12px; }
   .surprise { padding: 8px 12px; font-size: 13px; }
-  .eras { top: 80px; }
+  /* Phone: brand and button share the first row, search takes the full width below them. */
+  .topbar { flex-wrap: wrap; }
+  .search { order: 3; flex-basis: 100%; max-width: none; }
+  .search input { padding: 9px 14px; font-size: 13px; }
+  .eras { top: 136px; }
   .panel {
     top: auto; left: 0; right: 0; bottom: 0; width: auto; height: 62vh;
     border-radius: 18px 18px 0 0; border-bottom: 0; animation: sheet 0.3s ease-out;
@@ -240,6 +288,20 @@ a { color: var(--amber); }
   .hint { bottom: 56px; }
   @keyframes sheet { from { transform: translateY(40px); opacity: 0; } }
 }
+
+/* Year strip under "Today": the same spot in each year Mapillary has a photo for (docs/decisions/0013). */
+.today-years { padding: 4px 18px 16px; }
+.today-years-label { margin: 0 0 7px; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.today-years-strip { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: thin; }
+.today-years-strip button {
+  flex: none; background: none; border: 1px solid var(--line); border-radius: 999px;
+  padding: 4px 11px; font-size: 12.5px; color: var(--muted);
+}
+.today-years-strip button.on { color: #1b1108; background: var(--paper); border-color: var(--paper); }
+/* The only photo that year was taken well away from the place — shown, but never passed off as the place itself. */
+.today-years-strip button.far { border-style: dashed; opacity: 0.72; }
+.today-years-strip button.far.on { opacity: 1; }
+.today-years-key { text-transform: none; letter-spacing: 0; }
 
 /* Dev-only source switcher in "Today" (Google keyless embed vs official sources). */
 .today-tabs { display: flex; gap: 6px; margin-top: 10px; }

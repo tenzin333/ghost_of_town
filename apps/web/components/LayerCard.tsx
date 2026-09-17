@@ -49,6 +49,7 @@ export default function LayerCard({ place, index, onIndex, onBack }: Props) {
         <figure className="card-media">
           <img src={layer.media.src} width={layer.media.width} height={layer.media.height} alt={layer.title} />
           <figcaption>
+            {layer.media.year !== undefined && <strong className="media-year">Pictured in {layer.media.year}</strong>}
             <a href={layer.media.sourceUrl} target="_blank" rel="noopener">
               {layer.media.credit}
             </a>{" "}

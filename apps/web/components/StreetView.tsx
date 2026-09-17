@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import type { PlaceSummary } from "@wwh/schema";
 import { embedUrl as googleEmbedUrl, GOOGLE_KEYLESS_DEV, GOOGLE_STREET_VIEW, googleMapsUrl, imageryDate } from "@/lib/streetview";
-import { appUrl as mapillaryUrl, embedUrl as mapillaryEmbedUrl, MAPILLARY } from "@/lib/mapillary";
+import { appUrl as mapillaryUrl, embedUrl as mapillaryEmbedUrl, findYears, MAPILLARY, type YearView } from "@/lib/mapillary";
 import { findToday, type Today } from "@/lib/today";
 import { formatDistance } from "@/lib/geo";
 import { track } from "@/lib/analytics";
@@ -20,6 +20,10 @@ export default function StreetView({ place, onBack }: Props) {
   // Local development only: Google's keyless embed as a tab beside the official sources (see GOOGLE_KEYLESS_DEV).
   const [tab, setTab] = useState<"google-dev" | "sources">(GOOGLE_KEYLESS_DEV ? "google-dev" : "sources");
   const hasSources = GOOGLE_STREET_VIEW || MAPILLARY;
+  // The recent end of this place's biography: one Mapillary photo per year (docs/decisions/0013).
+  const [years, setYears] = useState<YearView[]>([]);
+  const [year, setYear] = useState<number>(); // undefined = "Now"
+  const chosen = years.find((y) => y.year === year);
 
   useEffect(() => {
     if (tab !== "sources" || !hasSources) return;
@@ -42,6 +46,25 @@ export default function StreetView({ place, onBack }: Props) {
     };
   }, [place, attempt, tab, hasSources]);
 
+  // The year timeline shares the cached Mapillary fetch with findToday, so this usually costs no extra request.
+  // It's an extra: a failure here stays silent, because "today" above already reports one.
+  useEffect(() => {
+    if (tab !== "sources" || !MAPILLARY) return;
+    let current = true;
+    setYears([]);
+    setYear(undefined);
+    findYears(place)
+      .then((found) => {
+        if (!current) return;
+        setYears(found);
+        if (found.length > 1) track("today_years", { place: place.id, years: found.length, oldest: found[found.length - 1].year });
+      })
+      .catch(() => {});
+    return () => {
+      current = false;
+    };
+  }, [place, attempt, tab]);
+
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && onBack();
     window.addEventListener("keydown", onKey);
@@ -57,7 +80,14 @@ export default function StreetView({ place, onBack }: Props) {
       </button>
       <div className="today-head">
         <p className="eyebrow">Today · {tab === "sources" && today && typeof today === "object" && today.source === "mapillary" ? "Street photos" : "Street View"}</p>
-        <p className="today-note">How this spot looks now. The layers below are what was here before.</p>
+        <p className="today-note">
+          {!chosen
+            ? "How this spot looks now."
+            : chosen.near
+              ? `This spot in ${chosen.year}.`
+              : `The nearest photo from ${chosen.year}, taken ${formatDistance(chosen.image.metres)} away.`}{" "}
+          The layers below are what was here before.
+        </p>
         {GOOGLE_KEYLESS_DEV && hasSources && (
           <div className="today-tabs" role="tablist">
             <button role="tab" aria-selected={tab === "google-dev"} className={tab === "google-dev" ? "on" : ""} onClick={() => setTab("google-dev")}>
@@ -86,16 +116,16 @@ export default function StreetView({ place, onBack }: Props) {
         </>
       )}
 
-      {tab === "sources" && today === undefined && <div className="today-frame today-empty" aria-busy>Looking for street-level photos…</div>}
+      {tab === "sources" && !chosen && today === undefined && <div className="today-frame today-empty" aria-busy>Looking for street-level photos…</div>}
 
-      {tab === "sources" && today === null && (
+      {tab === "sources" && !chosen && today === null && (
         <div className="today-frame today-empty">
           <span>No street-level photos near this spot yet.</span>
           <a href={googleMapsUrl(place)} target="_blank" rel="noopener" onClick={external("google")}>Look around in Google Maps ↗</a>
         </div>
       )}
 
-      {tab === "sources" && today === "failed" && (
+      {tab === "sources" && !chosen && today === "failed" && (
         <div className="today-frame today-empty">
           <span>Couldn&apos;t load street-level photos.</span>
           <button className="link" onClick={() => setAttempt((n) => n + 1)}>Try again</button>
@@ -103,7 +133,7 @@ export default function StreetView({ place, onBack }: Props) {
         </div>
       )}
 
-      {tab === "sources" && today && typeof today === "object" && today.source === "google" && (
+      {tab === "sources" && !chosen && today && typeof today === "object" && today.source === "google" && (
         <>
           <iframe
             className="today-frame"
@@ -123,7 +153,7 @@ export default function StreetView({ place, onBack }: Props) {
         </>
       )}
 
-      {tab === "sources" && today && typeof today === "object" && today.source === "mapillary" && (
+      {tab === "sources" && !chosen && today && typeof today === "object" && today.source === "mapillary" && (
         <>
           <iframe
             className="today-frame"
@@ -140,6 +170,55 @@ export default function StreetView({ place, onBack }: Props) {
             {today.image.metres >= 15 && ` · taken ${formatDistance(today.image.metres)} away`}
           </p>
         </>
+      )}
+      {tab === "sources" && chosen && (
+        <>
+          <iframe
+            key={chosen.image.id}
+            className="today-frame"
+            src={mapillaryEmbedUrl(chosen.image)}
+            title={`Mapillary street photo near ${place.name}, ${chosen.year}`}
+            loading="lazy"
+            allowFullScreen
+          />
+          <p className="today-credit">
+            {chosen.year} · Photo {chosen.image.creator ? `by ${chosen.image.creator} ` : ""}via{" "}
+            <a href={mapillaryUrl(chosen.image)} target="_blank" rel="noopener" onClick={external("mapillary")}>Mapillary ↗</a>,{" "}
+            <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a>
+            {chosen.image.metres >= 15 && ` · taken ${formatDistance(chosen.image.metres)} away`}
+          </p>
+        </>
+      )}
+
+      {tab === "sources" && years.length > 1 && (
+        <div className="today-years">
+          <p className="today-years-label">
+            This spot, year by year
+            {years.some((y) => !y.near) && <span className="today-years-key"> · “·” = nearest photo that year was further away</span>}
+          </p>
+          <div className="today-years-strip" role="tablist" aria-label="Year">
+            <button role="tab" aria-selected={year === undefined} className={year === undefined ? "on" : ""} onClick={() => setYear(undefined)}>
+              Now
+            </button>
+            {years.map((y) => (
+              <button
+                key={y.year}
+                role="tab"
+                aria-selected={year === y.year}
+                // `far` = the only photo that year was taken well away from the place; kept, but not passed off as it.
+                className={`${year === y.year ? "on" : ""}${y.near ? "" : " far"}`}
+                title={y.near ? `${y.year}` : `${y.year} · nearest photo is ${formatDistance(y.image.metres)} away`}
+                onClick={() => {
+                  setYear(y.year);
+                  track("today_year_open", { place: place.id, year: y.year, near: y.near });
+                }}
+              >
+                {y.year}
+                {!y.near && <span aria-hidden> ·</span>}
+              </button>
+            ))}
+          </div>
+        </div>
       )}
     </article>
   );

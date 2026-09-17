@@ -18,11 +18,43 @@ export const AREA = { west: 77.58, south: 12.962, east: 77.622, north: 12.993 };
 export const AREA_CENTER = { lng: (AREA.west + AREA.east) / 2, lat: (AREA.south + AREA.north) / 2 };
 export const SNAP_METRES = 150;
 
+/**
+ * Where the app opens. Two presets, chosen with `NEXT_PUBLIC_START`:
+ * - **bengaluru** (default): the hand-researched dig site. The only place with 3+ layer stacks (MG Road metro and
+ *   Attara Kacheri have four), so it is what a test of the dig-down concept has to land on.
+ * - **palais-royal**: the densest stack of *vanished* buildings we measured in France, and the one place where
+ *   Commons reliably has pre-1950 pictures — but its deepest live stack is only two layers.
+ * `curated` says whether the opening view sits inside the researched area, and so whether landing should read from
+ * the curated index or run a live dig.
+ */
+const START_PRESETS = {
+  bengaluru: { ...AREA_CENTER, zoom: 13.8, name: AREA_NAME, curated: true },
+  "palais-royal": { lng: 2.337, lat: 48.8635, zoom: 15.5, name: "Palais-Royal, Paris", curated: false },
+} as const;
+
+export const START =
+  START_PRESETS[(process.env.NEXT_PUBLIC_START ?? "") as keyof typeof START_PRESETS] ?? START_PRESETS.bengaluru;
+
+/**
+ * The place the landing notice leads with. An editorial choice, not a computed one: MG Road metro and Attara Kacheri
+ * both have four layers and identical wow scores, but only MG Road shows a *change of use* on one spot — Plaza
+ * Theatre (1936) → last film (2005) → metro station (2011). That is the differentiation thesis in a single stack
+ * (see research/competitors.md), so it is what a first-time visitor should meet.
+ * Falls back to the deepest stack in the index if this id isn't present.
+ */
+export const FEATURED_PLACE_ID = "mg-road-metro-station";
+
+/**
+ * The timeline. These buckets used to start at 1800, which was right for Bengaluru and wrong everywhere older:
+ * at Palais-Royal 23 of 82 dated layers fall before 1800 (oldest 1484) and had no button at all, so the best
+ * material — Molière's theatre, the Turgot map — was unreachable from the timeline.
+ */
 export const ERAS = [
   { id: "all", label: "All time" },
+  { id: "pre1700", label: "Before 1700", from: -4000, to: 1699 },
+  { id: "1700", label: "1700s", from: 1700, to: 1799 },
   { id: "1800", label: "1800s", from: 1800, to: 1899 },
-  { id: "1900", label: "1900–49", from: 1900, to: 1949 },
-  { id: "1950", label: "1950–99", from: 1950, to: 1999 },
+  { id: "1900", label: "1900s", from: 1900, to: 1999 },
   { id: "2000", label: "2000s", from: 2000, to: 2099 },
 ] as const;
 export type EraId = (typeof ERAS)[number]["id"];

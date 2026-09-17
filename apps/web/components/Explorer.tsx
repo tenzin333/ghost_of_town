@@ -3,13 +3,15 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import LayerStack from "./LayerStack";
+import Search from "./Search";
+import { isDiggable, type SearchHit } from "@/lib/search";
 import LayerCard from "./LayerCard";
 import StreetView from "./StreetView";
 import { googleMapsUrl } from "@/lib/streetview";
 import { TODAY_IN_APP } from "@/lib/today";
 import type { FlyTarget } from "./MapView";
 import {
-  AREA_CENTER, AREA_NAME, ERAS, SNAP_METRES, inArea, layerInEra, loadMapIndex, loadPlace, nearestPlaces,
+  AREA_CENTER, AREA_NAME, ERAS, FEATURED_PLACE_ID, SNAP_METRES, START, inArea, layerInEra, loadMapIndex, loadPlace, nearestPlaces,
   type EraId, type Place, type PlaceSummary,
 } from "@/lib/data";
 import { distance, formatDistance, type LngLat } from "@/lib/geo";
@@ -30,6 +32,8 @@ function zoomForFeature(f: MapFeature): number | undefined {
 
 type Via = "tap" | "hint" | "nearby" | "surprise" | "link";
 type Notice =
+  | { kind: "landing"; count: number; bestId: string; curated?: boolean }
+  | { kind: "searched"; name: string }
   | { kind: "miss"; nearestId: string; metres: number; live?: number }
   | { kind: "outside"; metres: number }
   | { kind: "searching" }
@@ -119,7 +123,13 @@ export default function Explorer() {
           const osm = await loadOsmPlace(id).catch(() => undefined);
           if (osm) addPlaces([summaryOf(osm)]);
         }
-        if (id && placesRef.current.some((p) => p.id === id)) openPlace(id, "link");
+        if (id && placesRef.current.some((p) => p.id === id)) return openPlace(id, "link");
+        // Opening inside the researched area: lead with the deepest stack we have, rather than a live search.
+        if (!id && START.curated) {
+          const best =
+            index.find((p) => p.id === FEATURED_PLACE_ID) ?? [...index].sort((a, b) => b.layers.length - a.layers.length)[0];
+          if (best) setNotice({ kind: "landing", count: index.length, bestId: best.id, curated: true });
+        }
       })
       .catch(() => {
         setNotice({ kind: "offline" });
@@ -138,7 +148,8 @@ export default function Explorer() {
 
   /** Outside the curated dig site: look up live history around the pin. */
   const digLive = useCallback(
-    (point: LngLat) => {
+    /** `landing`: the dig that runs on load — never snap into one place, show the whole field and invite a dig. */
+    (point: LngLat, { landing = false }: { landing?: boolean } = {}) => {
       const search = Date.now();
       latestSearch.current = search;
       setNotice({ kind: "searching" });
@@ -147,10 +158,21 @@ export default function Explorer() {
         .then((found) => {
           if (latestSearch.current !== search) return; // a newer pin superseded this one
           addPlaces(found);
-          track("live_search", { results: found.length, ms: Math.round(performance.now() - started) });
+          track("live_search", { results: found.length, ms: Math.round(performance.now() - started), landing });
           const ranked = nearestPlaces(found, point);
           const [nearest] = ranked;
           if (!nearest) return setNotice({ kind: "outside", metres: distance(point, AREA_CENTER) });
+          if (landing) {
+            // Lead with a place that actually has a biography: layers first, then how striking it is (docs 0013).
+            const best = [...ranked].sort(
+              (a, b) =>
+                b.place.layers.length - a.place.layers.length ||
+                Math.max(...b.place.layers.map((l) => l.wow)) - Math.max(...a.place.layers.map((l) => l.wow)) ||
+                a.metres - b.metres,
+            )[0];
+            setNotice({ kind: "landing", count: found.length, bestId: best.place.id });
+            return setFly({ ...point, atLeast: 15, panel: false, key: Date.now() });
+          }
           if (nearest.metres <= SNAP_METRES) return openPlace(nearest.place.id, "tap");
           // Suggest the most interesting place among those about as close as the nearest one.
           const wow = (p: PlaceSummary) => Math.max(...p.layers.map((l) => l.wow));
@@ -168,6 +190,16 @@ export default function Explorer() {
     },
     [addPlaces, openPlace],
   );
+
+  // With no deep link, open on the start area and dig it immediately: landing on an empty map taught people nothing.
+  const autoDug = useRef(false);
+  useEffect(() => {
+    if (autoDug.current) return;
+    autoDug.current = true;
+    if (new URLSearchParams(location.search).get("place")) return;
+    // Inside the researched area the curated index is the content; the live dig is for everywhere else.
+    if (!START.curated) digLive(START, { landing: true });
+  }, [digLive]);
 
   /** Empty spot: nearest curated place inside the dig site, live search outside it. */
   const digSpot = useCallback(
@@ -238,6 +270,29 @@ export default function Explorer() {
     [openPlace, openFeature, digSpot],
   );
 
+  /** A search result: fly to it, and dig if it's a real spot rather than a whole country. */
+  const goToSearch = useCallback(
+    (hit: SearchHit) => {
+      latestSearch.current = 0;
+      setPlaceId(undefined);
+      setLayerIndex(undefined);
+      setToday(false);
+      setPlaceParam(undefined);
+      setFly({ lng: hit.lng, lat: hit.lat, zoom: hit.zoom, panel: false, key: Date.now() });
+      const diggable = isDiggable(hit);
+      track("search_pick", { kind: hit.kind ?? "", zoom: Math.round(hit.zoom), diggable });
+      if (diggable) {
+        setPin({ lng: hit.lng, lat: hit.lat, key: Date.now() });
+        digLive(hit);
+      } else {
+        // A country or region: the centre of France is a field. Let them choose where to dig.
+        setPin(undefined);
+        setNotice({ kind: "searched", name: hit.name });
+      }
+    },
+    [digLive],
+  );
+
   const flyToArea = (via: string) => {
     setNotice(undefined);
     setFly({ ...AREA_CENTER, zoom: window.innerWidth < 760 ? 13.6 : 14.2, panel: false, key: Date.now() });
@@ -298,6 +353,7 @@ export default function Explorer() {
   };
 
   const nearestForNotice = notice?.kind === "miss" ? places.find((p) => p.id === notice.nearestId) : undefined;
+  const landingBest = notice?.kind === "landing" ? places.find((p) => p.id === notice.bestId) : undefined;
   // For a clicked map place with no recorded history: the closest places that do have some.
   const nearbyHistory =
     place && place.layers.length === 0
@@ -311,34 +367,63 @@ export default function Explorer() {
       <header className="topbar">
         <div className="brand">
           <h1>What was here?</h1>
-          <p>Now digging: {AREA_NAME}</p>
+          <p>Now digging: {START.name}</p>
         </div>
+        <Search onPick={goToSearch} />
         <button className="surprise" onClick={surprise}>
           Take me somewhere
         </button>
       </header>
 
       <div className="eras" role="radiogroup" aria-label="Time period">
-        {ERAS.map((e) => (
-          <button
-            key={e.id}
-            role="radio"
-            aria-checked={era === e.id}
-            className={era === e.id ? "on" : ""}
-            onClick={() => {
-              setEra(e.id);
-              track("era_change", { era: e.id });
-            }}
-          >
-            {e.label}
-          </button>
-        ))}
+        {ERAS.map((e) => {
+          // How many places this era would actually show. An era with nothing in it should look empty, not broken.
+          const n = e.id === "all" ? places.length : places.filter((p) => p.layers.some((l) => layerInEra(l, e.id))).length;
+          const known = places.length > 0;
+          return (
+            <button
+              key={e.id}
+              role="radio"
+              aria-checked={era === e.id}
+              aria-label={known ? `${e.label}, ${n} ${n === 1 ? "place" : "places"}` : e.label}
+              className={`${era === e.id ? "on" : ""}${known && n === 0 ? " empty" : ""}`}
+              onClick={() => {
+                setEra(e.id);
+                track("era_change", { era: e.id, places: n });
+              }}
+            >
+              {e.label}
+              {known && <span className="era-count" aria-hidden>{n}</span>}
+            </button>
+          );
+        })}
       </div>
 
       {!notice && !summary && visited.current.size === 0 && <p className="hint">Drop a pin anywhere on Earth</p>}
 
       {notice && !summary && (
         <div className="notice" role="status">
+          {notice.kind === "landing" && landingBest && (
+            <>
+              <strong>
+                {notice.count} places with a recorded history {notice.curated ? `in ${START.name}` : "under this block"}.
+              </strong>
+              <span>
+                {notice.curated
+                  ? "Hand-researched, every layer sourced. Tap any dot, or start here:"
+                  : "From Wikidata, Wikipedia and Commons · not reviewed by us. Tap any dot, or start here:"}
+              </span>
+              <button onClick={() => openPlace(landingBest.id, "hint")}>
+                {landingBest.name} ({landingBest.layers.length} {landingBest.layers.length === 1 ? "layer" : "layers"}) →
+              </button>
+            </>
+          )}
+          {notice.kind === "searched" && (
+            <>
+              <strong>{notice.name}</strong>
+              <span>Too big to dig in one go. Zoom to a street or a building, then tap it.</span>
+            </>
+          )}
           {notice.kind === "miss" && nearestForNotice && (
             <>
               <span>
@@ -438,13 +523,28 @@ function setPlaceParam(id: string | undefined) {
 
 function DebugLog() {
   const [log, setLog] = useState(readLog());
+  const [copied, setCopied] = useState(false);
   useEffect(() => {
     const t = setInterval(() => setLog(readLog()), 1000);
     return () => clearInterval(t);
   }, []);
+  useEffect(() => {
+    if (!copied) return;
+    const t = setTimeout(() => setCopied(false), 1800);
+    return () => clearTimeout(t);
+  }, [copied]);
   return (
-    <pre className="debug">
-      {log.slice(-12).map((e) => `${e.t}s ${e.name} ${JSON.stringify({ ...e, name: undefined, t: undefined })}`).join("\n")}
-    </pre>
+    <div className="debug">
+      {/* Observed tests: the whole session log has to leave the tester's device somehow. */}
+      <button
+        className="debug-copy"
+        onClick={() => navigator.clipboard.writeText(JSON.stringify(readLog(), null, 1)).then(() => setCopied(true))}
+      >
+        {copied ? "copied ✓" : `copy log (${log.length})`}
+      </button>
+      <pre>
+        {log.slice(-12).map((e) => `${e.t}s ${e.name} ${JSON.stringify({ ...e, name: undefined, t: undefined })}`).join("\n")}
+      </pre>
+    </div>
   );
 }

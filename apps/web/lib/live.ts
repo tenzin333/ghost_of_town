@@ -31,7 +31,8 @@ type Item = {
   lat: number;
   lng: number;
   dates: LiveDate[];
-  image?: string; // Commons file name
+  image?: string; // Commons file name (P18) — nearly always a modern photo
+  commons?: string; // Commons category (P373) — where the *old* pictures are
   article?: string; // en.wikipedia URL
 };
 
@@ -50,6 +51,7 @@ SELECT ?item ?itemLabel ?itemDescription ?coord ?prop ?date ?prec ?image ?articl
     ?item ?p ?st . ?st ?psv ?tv . ?tv wikibase:timeValue ?date ; wikibase:timePrecision ?prec .
   }
   OPTIONAL { ?item wdt:P18 ?image }
+  OPTIONAL { ?item wdt:P373 ?commons }
   OPTIONAL { ?article schema:about ?item ; schema:isPartOf <https://en.wikipedia.org/> }
   SERVICE wikibase:label { bd:serviceParam wikibase:language "en,mul". }
 } LIMIT 500`;
@@ -76,7 +78,8 @@ async function runQuery(selector: string, skipAreas: boolean): Promise<Item[]> {
     if (!point || !name || name === qid) continue; // no coordinates, or no usable label
     const item = found.get(qid) ?? {
       qid, name, description: b.itemDescription?.value, lng: Number(point[1]), lat: Number(point[2]), dates: [],
-      image: b.image && decodeURIComponent(b.image.value.split("/Special:FilePath/")[1] ?? ""), article: b.article?.value,
+      image: b.image && decodeURIComponent(b.image.value.split("/Special:FilePath/")[1] ?? ""),
+      commons: b.commons?.value, article: b.article?.value,
     };
     if (b.date && b.prop && b.prec) {
       const year = parseYear(b.date.value);
@@ -175,25 +178,75 @@ export function trimWords(text: string, max: number): string {
   return out || text.split(/\s+/).slice(0, max - 1).join(" ") + "…";
 }
 
-async function commonsMedia(file: string): Promise<Media | undefined> {
-  const url = new URL("https://commons.wikimedia.org/w/api.php");
-  for (const [k, v] of Object.entries({
-    action: "query", titles: `File:${file}`, prop: "imageinfo", iiprop: "url|extmetadata", iiurlwidth: "640", format: "json", origin: "*",
-  })) url.searchParams.set(k, v);
-  const res = await fetch(url, { signal: AbortSignal.timeout(TIMEOUT) });
-  if (!res.ok) return undefined;
-  const page = Object.values((await res.json()).query?.pages ?? {})[0] as {
-    imageinfo?: { thumburl: string; thumbwidth: number; thumbheight: number; descriptionurl: string; extmetadata?: Record<string, { value: string }> }[];
-  };
-  const info = page?.imageinfo?.[0];
+type ImageInfo = {
+  thumburl?: string;
+  thumbwidth?: number;
+  thumbheight?: number;
+  descriptionurl?: string;
+  mime?: string;
+  extmetadata?: Record<string, { value: string }>;
+};
+
+/** The year the picture itself was made, from Commons' own date fields (often wrapped in markup). */
+function pictureYear(meta?: Record<string, { value: string }>): number | undefined {
+  const raw = stripHtml(meta?.DateTimeOriginal?.value ?? meta?.DateTime?.value ?? "");
+  const m = raw.match(/\b(1[0-9]\d{2}|20[0-2]\d)\b/);
+  return m ? Number(m[1]) : undefined;
+}
+
+/** A Commons file we're allowed to show: free licence, an actual image, with credit and licence to display. */
+function toMedia(info?: ImageInfo): Media | undefined {
   const meta = info?.extmetadata;
-  // Only freely licensed files, with a licence we can show.
-  if (!info?.thumburl || !meta?.LicenseShortName || meta.NonFree) return undefined;
-  const credit = stripHtml(meta.Artist?.value ?? "") || "Wikimedia Commons contributor";
+  if (!info?.thumburl || !info.thumbwidth || !info.thumbheight || !info.descriptionurl) return undefined;
+  if (info.mime && !info.mime.startsWith("image/")) return undefined;
+  if (!meta?.LicenseShortName || meta.NonFree) return undefined;
   return {
-    src: info.thumburl, width: info.thumbwidth, height: info.thumbheight, credit,
+    src: info.thumburl, width: info.thumbwidth, height: info.thumbheight,
+    credit: stripHtml(meta.Artist?.value ?? "") || "Wikimedia Commons contributor",
     licence: meta.LicenseShortName.value, licenceUrl: meta.LicenseUrl?.value, sourceUrl: info.descriptionurl,
+    year: pictureYear(meta),
   };
+}
+
+async function commonsApi(params: Record<string, string>): Promise<{ imageinfo?: ImageInfo[] }[]> {
+  const url = new URL("https://commons.wikimedia.org/w/api.php");
+  for (const [k, v] of Object.entries({ action: "query", format: "json", origin: "*", ...params })) url.searchParams.set(k, v);
+  const res = await fetch(url, { signal: AbortSignal.timeout(TIMEOUT) });
+  if (!res.ok) return [];
+  return Object.values((await res.json()).query?.pages ?? {});
+}
+
+async function commonsMedia(file: string): Promise<Media | undefined> {
+  const [page] = await commonsApi({ titles: `File:${file}`, prop: "imageinfo", iiprop: "url|extmetadata|mime", iiurlwidth: "640" });
+  return toMedia(page?.imageinfo?.[0]);
+}
+
+/** A picture must be at least this old to count as showing the place *then* rather than now. */
+const HISTORIC_BEFORE = 1950;
+
+/**
+ * The oldest free picture in the place's Commons category — an engraving, print or photograph of it as it was.
+ * This is where the old images actually live: P18 (`image`) is nearly always a modern photo of the place today.
+ */
+async function historicMedia(category: string): Promise<Media | undefined> {
+  const pages = await commonsApi({
+    generator: "categorymembers", gcmtitle: `Category:${category}`, gcmtype: "file", gcmlimit: "200",
+    prop: "imageinfo", iiprop: "url|extmetadata|mime", iiurlwidth: "640",
+  });
+  let oldest: Media | undefined;
+  for (const page of pages) {
+    const media = toMedia(page.imageinfo?.[0]);
+    if (media?.year === undefined || media.year > HISTORIC_BEFORE) continue;
+    if (!oldest || media.year < oldest.year!) oldest = media; // the deepest look back the category offers
+  }
+  return oldest;
+}
+
+/** An old picture of the place beats today's photo of it — that is the whole point (docs/decisions/0013). */
+async function pickMedia(item: Item): Promise<Media | undefined> {
+  const historic = item.commons ? await historicMedia(item.commons).catch(() => undefined) : undefined;
+  if (historic) return historic;
+  return item.image ? commonsMedia(item.image).catch(() => undefined) : undefined;
 }
 
 const stripHtml = (html: string) => new DOMParser().parseFromString(html, "text/html").body.textContent?.trim() ?? "";
@@ -209,7 +262,7 @@ export function loadLivePlace(id: string): Promise<Place | undefined> {
       const item = items.get(qid)!;
       const [extract, media] = await Promise.all([
         item.article ? wikipediaExtract(item.article).catch(() => undefined) : undefined,
-        item.image ? commonsMedia(item.image).catch(() => undefined) : undefined,
+        pickMedia(item),
       ]);
       const wikidata = { label: "Wikidata", url: `https://www.wikidata.org/wiki/${qid}` };
       const wikipedia = extract && item.article ? { label: `Wikipedia: ${extract.title}`, url: item.article } : undefined;

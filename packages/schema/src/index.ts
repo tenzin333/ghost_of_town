@@ -15,6 +15,8 @@ export const Media = z.object({
   licence: z.string(),
   licenceUrl: z.string().optional(),
   sourceUrl: z.url(),
+  /** When the picture itself was made, if the source records it. A photograph or engraving of the place *then*. */
+  year: z.number().int().optional(),
 });
 
 export const Layer = z.object({

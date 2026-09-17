@@ -34,7 +34,8 @@ type Nominatim = {
 // ---------- Nominatim, politely ----------
 
 let lastRequest = 0;
-async function nominatim(path: string, params: Record<string, string>): Promise<unknown> {
+/** Exported for `lib/search.ts`: every Nominatim call in the app must go through this one queue. */
+export async function nominatim(path: string, params: Record<string, string>): Promise<unknown> {
   const wait = Math.max(0, lastRequest + 1100 - Date.now());
   lastRequest = Date.now() + wait;
   if (wait) await new Promise((r) => setTimeout(r, wait));
