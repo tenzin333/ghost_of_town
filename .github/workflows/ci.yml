@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      # Rebuilds places.json from candidates.csv and validates every row with Zod.
+      - run: pnpm data
+      - name: places.json is up to date with candidates.csv
+        run: git diff --exit-code data/places.json
+      - run: pnpm typecheck
+      - run: pnpm --filter @wwh/web build
+
+  database:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgis/postgis:17-3.6
+        env:
+          POSTGRES_PASSWORD: postgres
+        ports: ["54322:5432"]
+        options: --health-cmd "pg_isready -U postgres" --health-interval 2s --health-retries 30
+    env:
+      DATABASE_URL: postgres://postgres:postgres@localhost:54322/postgres
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      # Supabase's roles, as in the local docker stack.
+      - run: psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f packages/db/docker/roles.sql
+      - run: pnpm db:migrate
+      - name: Migrations match the Drizzle schema
+        run: pnpm db:generate && git status --porcelain packages/db/migrations && test -z "$(git status --porcelain packages/db/migrations)"
+      - run: pnpm db:seed
+      # Seeding twice must be a no-op (upserts, no duplicates).
+      - run: pnpm db:seed
+      - run: pnpm db:test

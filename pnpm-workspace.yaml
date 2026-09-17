@@ -1,0 +1,8 @@
+packages:
+  - apps/*
+  - packages/*
+  - data
+allowBuilds:
+  esbuild: true # used by tsx in packages/ingest
+minimumReleaseAgeExclude:
+  - zod@4.6.5

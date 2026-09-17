@@ -1,0 +1,32 @@
+# Local stand-in for Supabase: Postgres + PostGIS, and PostgREST (the REST layer Supabase runs) with the same
+# role names, so migrations, RLS and the browser's API calls behave the same as on the hosted project.
+#   Postgres  localhost:54322  (postgres / postgres)
+#   REST API  http://localhost:54321   (equivalent of https://<project>.supabase.co/rest/v1)
+name: wwh
+
+services:
+  db:
+    image: postgis/postgis:17-3.6
+    environment:
+      POSTGRES_PASSWORD: postgres
+    ports: ["54322:5432"]
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      - ./docker/roles.sql:/docker-entrypoint-initdb.d/99-roles.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 2s
+      retries: 30
+
+  rest:
+    image: postgrest/postgrest:v16.3
+    depends_on:
+      db: { condition: service_healthy }
+    environment:
+      PGRST_DB_URI: postgres://authenticator:postgres@db:5432/postgres
+      PGRST_DB_SCHEMAS: public
+      PGRST_DB_ANON_ROLE: anon
+    ports: ["54321:3000"]
+
+volumes:
+  db-data:

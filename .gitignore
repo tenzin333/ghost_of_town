@@ -1,0 +1,13 @@
+node_modules/
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+.env*.local
+.env
+!.env.example
+
+docs/
+
+# copied from node_modules at build time (apps/web/scripts/vendor-maplibre.mjs)
+apps/web/public/maplibre/

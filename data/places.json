@@ -1,0 +1,1068 @@
+[
+ {
+  "id": "mg-road-metro-station",
+  "name": "MG Road metro station",
+  "lat": 12.97538,
+  "lng": 77.60649,
+  "geoPrecision": "building",
+  "layers": [
+   {
+    "id": "4",
+    "yearStart": 2011,
+    "datePrecision": "year",
+    "type": "building",
+    "title": "MG Road metro station opens; old boulevard demolished",
+    "hook": "The old MG Road boulevard was demolished to build this station",
+    "story": "MG Road metro station now stands on the old Plaza site. Building Namma Metro here meant demolishing the old MG Road boulevard.",
+    "sources": [
+     {
+      "label": "Wikipedia: Mahatma Gandhi Road metro station (Bengaluru)",
+      "url": "https://en.wikipedia.org/wiki/Mahatma_Gandhi_Road_metro_station_(Bengaluru)"
+     },
+     {
+      "label": "Wikidata",
+      "url": "https://www.wikidata.org/"
+     }
+    ],
+    "confidence": "verified",
+    "wow": 4
+   },
+   {
+    "id": "3",
+    "yearStart": 2005,
+    "datePrecision": "day",
+    "type": "event",
+    "title": "Plaza's last film: Meet the Fockers",
+    "hook": "The last show was 17 March 2005 — then the building was bought for a mall that was never allowed",
+    "story": "Plaza's final show was Meet the Fockers on 17 March 2005. The family sold the theatre; a mining investor from Ballari wanted to build a shopping mall, but the city corporation refused permission. The land was acquired for Namma Metro instead.",
+    "sources": [
+     {
+      "label": "Wikipedia: Plaza Theatre (Bengaluru)",
+      "url": "https://en.wikipedia.org/wiki/Plaza_Theatre_(Bengaluru)"
+     }
+    ],
+    "confidence": "verified",
+    "wow": 4
+   },
+   {
+    "id": "2",
+    "yearStart": 1959,
+    "datePrecision": "year",
+    "type": "event",
+    "title": "The Ten Commandments runs 44 weeks at Plaza",
+    "hook": "Schools brought children in droves; the Maharaja of Mysore got a private screening",
+    "story": "The Ten Commandments ran for 44 straight weeks, the longest run in Plaza's history. Schools brought children in by the busload, and in 1959 a private screening was arranged for the Maharaja of Mysore, Jayachamarajendra Wodeyar, and his entourage.",
+    "sources": [
+     {
+      "label": "Wikipedia: Plaza Theatre (Bengaluru)",
+      "url": "https://en.wikipedia.org/wiki/Plaza_Theatre_(Bengaluru)"
+     }
+    ],
+    "confidence": "verified",
+    "wow": 4
+   },
+   {
+    "id": "1",
+    "yearStart": 1936,
+    "datePrecision": "month",
+    "type": "cinema",
+    "title": "Plaza Theatre opens (modelled on Piccadilly Circus)",
+    "hook": "A 1936 cinema with a dance floor for British soldiers stood where the metro now is",
+    "story": "In April 1936 Plaza screened its first film, The Broadway Melody. Brothers A. S. Krishnamoorthy and Rajamanickam Velu built it on land where they had run a furniture business, after travelling to Britain to study cinemas, and modelled it on Piccadilly Circus. It had a bar and a wooden dance floor used by British soldiers. The best balcony seats cost 1 rupee 12 annas.",
+    "sources": [
+     {
+      "label": "Wikipedia: Plaza Theatre (Bengaluru)",
+      "url": "https://en.wikipedia.org/wiki/Plaza_Theatre_(Bengaluru)"
+     }
+    ],
+    "confidence": "verified",
+    "wow": 5
+   }
+  ]
+ },
+ {
+  "id": "south-parade-mg-road",
+  "name": "South Parade / MG Road",
+  "lat": 12.9738,
+  "lng": 77.605,
+  "geoPrecision": "street",
+  "layers": [
+   {
+    "id": "5",
+    "yearStart": 1948,
+    "datePrecision": "day",
+    "type": "street",
+    "title": "South Parade renamed Mahatma Gandhi Road",
+    "hook": "Until 26 Feb 1948 this road was South Parade — the social spine of a British garrison",
+    "story": "Before independence this road was South Parade, the social spine of the British Cantonment, known for its bars, restaurants and shops. On 26 February 1948 it was renamed Mahatma Gandhi Road. The photograph shows people walking on South Parade, with St Andrew's seen across the parade grounds.",
+    "media": {
+     "src": "/media/5.jpg",
+     "width": 1200,
+     "height": 800,
+     "credit": "Old Postcard",
+     "licence": "Public domain",
+     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Review_Maidan,_Bangalore_(Mohammedans_walking_on_South_Parade,_St._Andrew%27s_Seen_through_the_Parade_Grounds).jpg"
+    },
+    "sources": [
+     {
+      "label": "Wikipedia: Mahatma Gandhi Road, Bengaluru",
+      "url": "https://en.wikipedia.org/wiki/Mahatma_Gandhi_Road%2C_Bengaluru"
+     },
+     {
+      "label": "Wikipedia: Bangalore Cantonment",
+      "url": "https://en.wikipedia.org/wiki/Bangalore_Cantonment"
+     }
+    ],
+    "confidence": "verified",
+    "wow": 5
+   }
+  ]
+ },
+ {
+  "id": "parade-ground",
+  "name": "Parade Ground",
+  "lat": 12.975,
+  "lng": 77.603,
+  "geoPrecision": "area",
+  "layers": [
+   {
+    "id": "6",
+    "yearStart": 1809,
+    "datePrecision": "year",
+    "type": "story",
+    "title": "The Parade Ground: heart of the Cantonment (est. 1809)",
+    "hook": "A military parade ground was the centre of the whole British town",
+    "story": "The British formally established the Cantonment in 1809, north-east of Kempe Gowda's old market town. Its heart was the Parade Ground, and the Civil and Military Station grew up around it. The image is an 1854 plan of Bangalore.",
+    "media": {
+     "src": "/media/6.jpg",
+     "width": 1200,
+     "height": 1359,
+     "credit": "J & C Walker",
+     "licence": "Public domain",
+     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bangalore_cantonment.jpg"
+    },
+    "sources": [
+     {
+      "label": "Wikipedia: Bangalore Cantonment",
+      "url": "https://en.wikipedia.org/wiki/Bangalore_Cantonment"
+     },
+     {
+      "label": "Wikipedia: Bengaluru Central Business District",
+      "url": "https://en.wikipedia.org/wiki/Bengaluru_Central_Business_District"
+     }
+    ],
+    "confidence": "verified",
+    "wow": 4
+   }
+  ]
+ },
+ {
+  "id": "freedom-park",
+  "name": "Freedom Park",
+  "lat": 12.97747,
+  "lng": 77.58215,
+  "geoPrecision": "building",
+  "layers": [
+   {
+    "id": "9",
+    "yearStart": 2008,
+    "datePrecision": "month",
+    "type": "building",
+    "title": "Freedom Park opens with a protest zone",
+    "hook": "Part of the old jail is now set aside for protests",
+    "story": "The old jail reopened to the public as Freedom Park in November 2008, with part of it set aside for protests. It later hosted Anna Hazare's indefinite fast, backed by India Against Corruption, for the Lokpal bill.",
+    "sources": [
+     {
+      "label": "Wikipedia: Freedom Park, Bengaluru",
+      "url": "https://en.wikipedia.org/wiki/Freedom_Park%2C_Bengaluru"
+     }
+    ],
+    "confidence": "verified",
+    "wow": 3
+   },
+   {
+    "id": "7",
+    "yearEnd": 2008,
+    "datePrecision": "decade",
+    "type": "building",
+    "title": "Bangalore Central Jail",
+    "hook": "This park was a prison — Vajpayee and Advani were jailed here during the 1975 Emergency",
+    "story": "Before it was a park, this was the Bangalore Central Jail. The prison site was later redeveloped as Freedom Park.",
+    "sources": [
+     {
+      "label": "Wikipedia: Freedom Park, Bengaluru",
+      "url": "https://en.wikipedia.org/wiki/Freedom_Park%2C_Bengaluru"
+     },
+     {
+      "label": "Wikipedia: Bengaluru Central Business District",
+      "url": "https://en.wikipedia.org/wiki/Bengaluru_Central_Business_District"
+     }
+    ],
+    "confidence": "verified",
+    "wow": 5
+   },
+   {
+    "id": "8",
+    "yearStart": 1975,
+    "datePrecision": "year",
+    "type": "event",
+    "title": "Emergency: opposition leaders imprisoned",
+    "hook": "Vajpayee and Advani were among the leaders held here in 1975",
+    "story": "When the Emergency was proclaimed in 1975, several opposition leaders, including Atal Bihari Vajpayee and L. K. Advani, were arrested and jailed in this prison.",
+    "sources": [
+     {
+      "label": "Wikipedia: Freedom Park, Bengaluru",
+      "url": "https://en.wikipedia.org/wiki/Freedom_Park%2C_Bengaluru"
+     }
+    ],
+    "confidence": "verified",
+    "wow": 5
+   }
+  ]
+ },
+ {
+  "id": "sree-kanteerava-stadium",
+  "name": "Sree Kanteerava Stadium",
+  "lat": 12.96977,
+  "lng": 77.59277,
+  "geoPrecision": "building",
+  "layers": [
+   {
+    "id": "11",
+    "yearStart": 1946,
+    "datePrecision": "year",
+    "type": "building",
+    "title": "Sampangi Stadium inaugurated",
+    "hook": "Opened by Maharaja Jayachamaraja Wadiyar as Sampangi Stadium",
+    "story": "Built on the drained lakebed, the stadium was inaugurated in 1946 by Maharaja Jayachamaraja Wadiyar as Sampangi Stadium. It was later renamed after his father, Yuvaraja Kanteerava Narasimharaja Wadiyar.",
+    "sources": [
+     {
+      "label": "Wikipedia: Sree Kanteerava Stadium",
+      "url": "https://en.wikipedia.org/wiki/Sree_Kanteerava_Stadium"
+     }
+    ],
+    "confidence": "verified",
+    "wow": 3
+   },
+   {
+    "id": "10",
+    "yearStart": 1937,
+    "datePrecision": "year",
+    "type": "story",
+    "title": "Sampangi Lake drained",
+    "hook": "A stadium sits on the bed of a lake that was drained in 1937",
+    "story": "This stadium sits on the bed of Sampangi Lake. Once piped water arrived from Hesaraghatta, the lake was neglected, came to be seen as an environmental hazard, and was drained in 1937.",
+    "sources": [
+     {
+      "label": "Wikipedia: Sree Kanteerava Stadium",
+      "url": "https://en.wikipedia.org/wiki/Sree_Kanteerava_Stadium"
+     }
+    ],
+    "confidence": "verified",
+    "wow": 5
+   }
+  ]
+ },
+ {
+  "id": "bangalore-club",
+  "name": "Bangalore Club",
+  "lat": 12.96684,
+  "lng": 77.5974,
+  "geoPrecision": "building",
+  "layers": [
+   {
+    "id": "14",
+    "yearStart": 1946,
+    "datePrecision": "year",
+    "type": "event",
+    "title": "Club opens to civilians and is renamed",
+    "hook": "Officers only until 1946 — then civilians were let in",
+    "story": "Civilians were admitted in 1946, and the United Services Club became the Bangalore Club. When permanent membership was last open, the waiting list ran to more than 30 years. The photograph is from 1902.",
+    "media": {
+     "src": "/media/14.jpg",
+     "width": 1200,
+     "height": 910,
+     "credit": "Macnabb Collection",
+     "licence": "CC BY-SA 3.0",
+     "licenceUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+     "sourceUrl": "https://commons.wikimedia.org/wiki/File:U.S._Club,_Bangalore,_1902..jpg"
+    },
+    "sources": [
+     {
+      "label": "Wikipedia: Bangalore Club",
+      "url": "https://en.wikipedia.org/wiki/Bangalore_Club"
+     }
+    ],
+    "confidence": "verified",
+    "wow": 3
+   },
+   {
+    "id": "12",
+    "yearStart": 1868,
+    "datePrecision": "year",
+    "type": "building",
+    "title": "Bangalore United Services Club founded",
+    "hook": "An officers-only club of the British Empire",
+    "story": "Founded in 1868 as the Bangalore United Services Club, for officers of the British Empire. Its past members include the Maharaja of Mysore and Winston Churchill. The picture shows the club around 1883.",
+    "media": {
+     "src": "/media/12.jpg",
+     "width": 1200,
+     "height": 946,
+     "credit": "Albert Thomas Watson Penn",
+     "licence": "Public domain",
+     "sourceUrl": "https://commons.wikimedia.org/wiki/File:OLDBangaloreClubWinstonChurchillPHOTO_1024x1024.jpg"
+    },
+    "sources": [
+     {
+      "label": "Wikipedia: Bangalore Club",
+      "url": "https://en.wikipedia.org/wiki/Bangalore_Club"
+     }
+    ],
+    "confidence": "verified",
+    "wow": 4
+   },
+   {
+    "id": "13",
+    "datePrecision": "undated",
+    "type": "story",
+    "title": "Winston Churchill's unpaid bill of Rs 13",
+    "hook": "A ledger on display lists Winston Churchill's Rs 13 as an irrecoverable debt",
+    "story": "A ledger on display in the club's main building lies open at a page of 'irrecoverable debts' the club wrote off. One entry: Rs 13, owed by Winston Churchill.",
+    "sources": [
+     {
+      "label": "Wikipedia: Bangalore Club",
+      "url": "https://en.wikipedia.org/wiki/Bangalore_Club"
+     }
+    ],
+    "confidence": "verified",
+    "wow": 5
+   }
+  ]
+ },
+ {
+  "id": "st-marks-cathedral",
+  "name": "St Mark's Cathedral",
+  "lat": 12.97603,
+  "lng": 77.60015,
+  "geoPrecision": "building",
+  "layers": [
+   {
+    "id": "16",
+    "yearStart": 1923,
+    "datePrecision": "day",
+    "type": "event",
+    "title": "Fire guts St Mark's",
+    "hook": "On 17 Feb 1923 a short circuit burned the church — photographed by Kenneth Anderson",
+    "story": "On 17 February 1923 a short circuit set St Mark's on fire, ravaging the building. The congregation had to worship elsewhere while it was restored. These photographs of the damage are by Kenneth Anderson.",
+    "media": {
+     "src": "/media/16.jpg",
+     "width": 1200,
+     "height": 764,
+     "credit": "Kenneth Anderson",
+     "licence": "Public domain",
+     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Kenneth_Anderson_-_1923_Fire_Damage,_St._Mark%27s_Cathedral,_Bangalore_01.jpg"
+    },
+    "sources": [
+     {
+      "label": "Wikipedia: St. Mark's Cathedral, Bengaluru",
+      "url": "https://en.wikipedia.org/wiki/St._Mark%27s_Cathedral%2C_Bengaluru"
+     }
+    ],
+    "confidence": "verified",
+    "wow": 5
+   },
+   {
+    "id": "17",
+    "yearStart": 1912,
+    "datePrecision": "circa",
+    "type": "photo",
+    "title": "St Marks c.1912 (Tuck's postcard)",
+    "hook": "",
+    "story": "St Mark's on a Tuck's postcard from around 1912, about a decade before the fire of 1923.",
+    "media": {
+     "src": "/media/17.jpg",
+     "width": 1200,
+     "height": 754,
+     "credit": "TuckDB",
+     "licence": "Public domain",
+     "sourceUrl": "https://commons.wikimedia.org/wiki/File:St._Marks_Church,_Bangalore_(around_1912)_-_Tucks_Postcard.jpg"
+    },
+    "sources": [
+     {
+      "label": "Wikimedia Commons",
+      "url": "https://commons.wikimedia.org/wiki/File:St._Marks_Church%2C_Bangalore_(around_1912)_-_Tucks_Postcard.jpg"
+     }
+    ],
+    "confidence": "verified",
+    "wow": 3
+   },
+   {
+    "id": "15",
+    "yearStart": 1812,
+    "datePrecision": "year",
+    "type": "building",
+    "title": "St Mark's Church built on the South Parade grounds",
+    "hook": "",
+    "story": "St Mark's was built on the South Parade grounds of the Cantonment. Sources disagree on the date: Wikidata gives 1812, while several Wikimedia Commons captions say 1808. Pictured here in 1900 by C. H. Doveton.",
+    "media": {
+     "src": "/media/15.jpg",
+     "width": 1200,
+     "height": 825,
+     "credit": "C. H. Doveton, of 34 Infantry Road, Bangalore",
+     "licence": "Public domain",
+     "sourceUrl": "https://commons.wikimedia.org/wiki/File:St_Mark%27s_Church,_Bangalore_(1900),_by_C_H_Doveton.jpg"
+    },
+    "sources": [
+     {
+      "label": "Wikipedia: St. Mark's Cathedral, Bengaluru",
+      "url": "https://en.wikipedia.org/wiki/St._Mark%27s_Cathedral%2C_Bengaluru"
+     },
+     {
+      "label": "Wikidata",
+      "url": "https://www.wikidata.org/"
+     }
+    ],
+    "confidence": "disputed",
+    "wow": 3
+   }
+  ]
+ },
+ {
+  "id": "attara-kacheri-high-court",
+  "name": "Attara Kacheri (High Court)",
+  "lat": 12.97788,
+  "lng": 77.59267,
+  "geoPrecision": "building",
+  "layers": [
+   {
+    "id": "21",
+    "yearStart": 2019,
+    "yearEnd": 2020,
+    "datePrecision": "year",
+    "type": "event",
+    "title": "Cubbon statue moved into Cubbon Park",
+    "hook": "Mark Cubbon's statue outside this building was moved into the park",
+    "story": "Mark Cubbon's equestrian statue, long a fixture at this building, was moved to the Band Stand inside Cubbon Park. Sources disagree on when: one Wikipedia article says 2019, another says 28 June 2020. The engraving shows the statue's inauguration, from the Illustrated London News.",
+    "media": {
+     "src": "/media/21.jpg",
+     "width": 1200,
+     "height": 595,
+     "credit": "Unknown artist Unknown artist , indecipherable",
+     "licence": "Public domain",
+     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Inauguration_of_the_Statue_of_Sir._Mark_Cubbon_at_Bangalore,_India_-_ILN_1861.jpg"
+    },
+    "sources": [
+     {
+      "label": "Wikipedia: Attara Kacheri",
+      "url": "https://en.wikipedia.org/wiki/Attara_Kacheri"
+     },
+     {
+      "label": "Wikipedia: Cubbon Park",
+      "url": "https://en.wikipedia.org/wiki/Cubbon_Park"
+     }
+    ],
+    "confidence": "disputed",
+    "wow": 4
+   },
+   {
+    "id": "20",
+    "yearStart": 1950,
+    "yearEnd": 1959,
+    "datePrecision": "decade",
+    "type": "story",
+    "title": "Chief Minister wants it demolished",
+    "hook": "Kengal Hanumanthaiah wanted this colonial building torn down",
+    "story": "In the early 1950s Chief Minister Kengal Hanumanthaiah wanted Attara Kacheri demolished as a vestige of colonialism. It survived. After the legislature moved to Vidhana Soudha in 1956, the High Court took over the whole building.",
+    "media": {
+     "src": "/media/20.jpg",
+     "width": 1200,
+     "height": 774,
+     "credit": "TuckDB.org",
+     "licence": "Public domain",
+     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Attara_Katcheri,_Bangalore_(Early_1900s),_Tucks_Post_Card.jpg"
+    },
+    "sources": [
+     {
+      "label": "Wikipedia: Attara Kacheri",
+      "url": "https://en.wikipedia.org/wiki/Attara_Kacheri"
+     }
+    ],
+    "confidence": "verified",
+    "wow": 5
+   },
+   {
+    "id": "19",
+    "yearStart": 1947,
+    "datePrecision": "day",
+    "type": "event",
+    "title": "New elected cabinet sworn in amid jubilation",
+    "hook": "24 Oct 1947: crowds cheered as an elected cabinet was sworn in here",
+    "story": "On 24 October 1947 a new cabinet of elected representatives was sworn in here, and Attara Kacheri became a scene of great public jubilation.",
+    "sources": [
+     {
+      "label": "Wikipedia: Attara Kacheri",
+      "url": "https://en.wikipedia.org/wiki/Attara_Kacheri"
+     }
+    ],
+    "confidence": "verified",
+    "wow": 4
+   },
+   {
+    "id": "18",
+    "yearStart": 1868,
+    "datePrecision": "year",
+    "type": "building",
+    "title": "Public Offices completed",
+    "hook": "Mysore's government offices moved into this building in 1868",
+    "story": "Completed in 1868 as the Public Offices, the building housed the Mysore government's secretariat. The site, chosen by Mark Cubbon facing the Cantonment parade grounds, was full of boulders and ravines, so the builders laid foundations fourteen feet deep. The 1890 photograph shows Cubbon's equestrian statue out front.",
+    "media": {
+     "src": "/media/18.jpg",
+     "width": 1200,
+     "height": 864,
+     "credit": "Unknown author",
+     "licence": "Public domain",
+     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Public_Offices_(with_an_equestrian_statue_of_Sir_Mark_Cubbon),_Bangalore_(1890)._Curzon_Collection%27s_%27Souvenir_of_Mysore_Album%27.jpg"
+    },
+    "sources": [
+     {
+      "label": "Wikipedia: Attara Kacheri",
+      "url": "https://en.wikipedia.org/wiki/Attara_Kacheri"
+     }
+    ],
+    "confidence": "verified",
+    "wow": 4
+   }
+  ]
+ },
+ {
+  "id": "cubbon-park",
+  "name": "Cubbon Park",
+  "lat": 12.975,
+  "lng": 77.59333,
+  "geoPrecision": "area",
+  "layers": [
+   {
+    "id": "23",
+    "yearStart": 1927,
+    "datePrecision": "year",
+    "type": "story",
+    "title": "Renamed Sri Chamarajendra Park — nobody used it",
+    "hook": "Officially renamed in 1927; almost a century later everyone still says Cubbon Park",
+    "story": "In 1927, for the silver jubilee of Krishnaraja Wodeyar's rule, the park was officially renamed Sri Chamarajendra Park. The name never caught on, and people kept calling it Cubbon Park.",
+    "sources": [
+     {
+      "label": "Wikipedia: Cubbon Park",
+      "url": "https://en.wikipedia.org/wiki/Cubbon_Park"
+     }
+    ],
+    "confidence": "verified",
+    "wow": 4
+   },
+   {
+    "id": "22",
+    "yearStart": 1870,
+    "datePrecision": "year",
+    "type": "building",
+    "title": "Meade's Park laid out",
+    "hook": "Cubbon Park was first named after someone else — Sir John Meade",
+    "story": "Laid out in 1870 under Major General Richard Sankey, the park was first called Meade's Park, after acting commissioner Sir John Meade. It was later renamed after Sir Mark Cubbon, the longest-serving commissioner. Photographed in 1890.",
+    "media": {
+     "src": "/media/22.jpg",
+     "width": 1200,
+     "height": 811,
+     "credit": "Unknown author",
+     "licence": "Public domain",
+     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cubbon_Park,_Bangalore_(1890)._Curzon_Collection%27s_%27Souvenir_of_Mysore_Album%27.jpg"
+    },
+    "sources": [
+     {
+      "label": "Wikipedia: Cubbon Park",
+      "url": "https://en.wikipedia.org/wiki/Cubbon_Park"
+     }
+    ],
+    "confidence": "verified",
+    "wow": 4
+   }
+  ]
+ },
+ {
+  "id": "government-museum",
+  "name": "Government Museum",
+  "lat": 12.97487,
+  "lng": 77.59577,
+  "geoPrecision": "building",
+  "layers": [
+   {
+    "id": "25",
+    "yearStart": 1877,
+    "datePrecision": "year",
+    "type": "building",
+    "title": "Museum building opens on Sydney Road",
+    "hook": "Kasturba Road used to be Sydney Road",
+    "story": "The museum's own building opened in 1877 on what was then Sydney Road, today Kasturba Road. Photographed in 1890.",
+    "media": {
+     "src": "/media/25.jpg",
+     "width": 1200,
+     "height": 794,
+     "credit": "Unknown author",
+     "licence": "Public domain",
+     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Government_Museum,_Bangalore_(1890)_from_the_Curzon_Collection%27s_%27Souvenir_of_Mysore_Album%27.jpg"
+    },
+    "sources": [
+     {
+      "label": "Wikipedia: Government Museum, Bengaluru",
+      "url": "https://en.wikipedia.org/wiki/Government_Museum%2C_Bengaluru"
+     }
+    ],
+    "confidence": "verified",
+    "wow": 3
+   },
+   {
+    "id": "24",
+    "yearStart": 1865,
+    "datePrecision": "year",
+    "type": "story",
+    "title": "Museum founded inside the Cantonment jail",
+    "hook": "Bangalore's museum started life in a jail building",
+    "story": "The museum was established in 1865 with guidance from Surgeon Edward Balfour, who had founded the museum in Madras. Its first home was the Cantonment's jail building. That was judged unsuitable, so a purpose-built museum was planned.",
+    "sources": [
+     {
+      "label": "Wikipedia: Government Museum, Bengaluru",
+      "url": "https://en.wikipedia.org/wiki/Government_Museum%2C_Bengaluru"
+     }
+    ],
+    "confidence": "verified",
+    "wow": 4
+   }
+  ]
+ },
+ {
+  "id": "statue-of-queen-victoria",
+  "name": "Statue of Queen Victoria",
+  "lat": 12.97684,
+  "lng": 77.5988,
+  "geoPrecision": "exact",
+  "layers": [
+   {
+    "id": "26",
+    "yearStart": 1906,
+    "datePrecision": "day",
+    "type": "event",
+    "title": "Queen Victoria statue unveiled by future George V",
+    "hook": "5 Feb 1906: the Prince of Wales unveiled it on his India tour",
+    "story": "Unveiled on 5 February 1906 by the Prince of Wales, the future King George V, during his tour of British India. From Bangalore he went on to Karachi to unveil yet another statue of the late queen.",
+    "media": {
+     "src": "/media/26.jpg",
+     "width": 1200,
+     "height": 900,
+     "credit": "WestCoastMusketeer",
+     "licence": "CC BY-SA 4.0",
+     "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Victoria_Full,_Bangalore.JPG"
+    },
+    "sources": [
+     {
+      "label": "Wikipedia: Statue of Queen Victoria, Bengaluru",
+      "url": "https://en.wikipedia.org/wiki/Statue_of_Queen_Victoria%2C_Bengaluru"
+     }
+    ],
+    "confidence": "verified",
+    "wow": 3
+   }
+  ]
+ },
+ {
+  "id": "statue-of-edward-vii",
+  "name": "Statue of Edward VII",
+  "lat": 12.9803,
+  "lng": 77.59493,
+  "geoPrecision": "exact",
+  "layers": [
+   {
+    "id": "27",
+    "yearStart": 1919,
+    "datePrecision": "month",
+    "type": "event",
+    "title": "Edward VII statue unveiled by Viceroy Chelmsford",
+    "hook": "",
+    "story": "The statue of King Edward VII was unveiled in November 1919 by the Viceroy, Lord Chelmsford. The picture shows Leonard Jennings's marble statue as published in 1914.",
+    "media": {
+     "src": "/media/27.jpg",
+     "width": 1200,
+     "height": 2375,
+     "credit": "Alex Koch and Sons, Academy Architecture and Architectural Review",
+     "licence": "Public domain",
+     "sourceUrl": "https://commons.wikimedia.org/wiki/File:King_Edward_VII._Marble_Statue_for_Bangalore,_Mysore._Leonard_Jennings,_Sculptor_(p.36,_Academy_of_Architecture,_1914_-_Sculptures)_-_Copy.jpg"
+    },
+    "sources": [
+     {
+      "label": "Wikipedia: Statue of Edward VII, Bengaluru",
+      "url": "https://en.wikipedia.org/wiki/Statue_of_Edward_VII%2C_Bengaluru"
+     }
+    ],
+    "confidence": "verified",
+    "wow": 2
+   }
+  ]
+ },
+ {
+  "id": "rex-theatre",
+  "name": "Rex Theatre",
+  "lat": 12.9728,
+  "lng": 77.6067,
+  "geoPrecision": "street",
+  "layers": [
+   {
+    "id": "30",
+    "yearStart": 2018,
+    "datePrecision": "day",
+    "type": "event",
+    "title": "Rex's final show",
+    "hook": "80 years of cinema ended on 31 Dec 2018",
+    "story": "Rex shut on 31 December 2018 after about 80 years of cinema on the site. Kapur Investments and the Prestige Group planned a four-screen multiplex with shops and restaurants in its place.",
+    "sources": [
+     {
+      "label": "The News Minute",
+      "url": "https://www.thenewsminute.com/karnataka/80-years-cinema-credits-roll-bengalurus-rex-theatre-it-shuts-dec-31-92851"
+     },
+     {
+      "label": "Citizen Matters",
+      "url": "https://citizenmatters.in/bengalurus-rex-gone-but-not-forgotten/"
+     }
+    ],
+    "confidence": "verified",
+    "wow": 4
+   },
+   {
+    "id": "29",
+    "yearStart": 1962,
+    "datePrecision": "year",
+    "type": "cinema",
+    "title": "Reopens as Rex with Sleeping Beauty",
+    "hook": "Won at auction in 1961 for Rs 8.51 lakh",
+    "story": "After being mortgaged in 1951, the property was won at auction by Nand Lal Kapur in 1961. It opened as Rex in 1962 with The Sleeping Beauty, got air conditioning in 1971, and later ran Cliffhanger for 29 weeks.",
+    "sources": [
+     {
+      "label": "The News Minute",
+      "url": "https://www.thenewsminute.com/karnataka/80-years-cinema-credits-roll-bengalurus-rex-theatre-it-shuts-dec-31-92851"
+     }
+    ],
+    "confidence": "verified",
+    "wow": 3
+   },
+   {
+    "id": "28",
+    "yearStart": 1940,
+    "yearEnd": 1949,
+    "datePrecision": "decade",
+    "type": "cinema",
+    "title": "Two auditoriums built on Brigade Road",
+    "hook": "",
+    "story": "In the late 1930s Rao Saheb Pasupalety Venugopal Naidu bought an acre on Brigade Road and built two auditoriums, which began screening films in the 1940s.",
+    "sources": [
+     {
+      "label": "The News Minute",
+      "url": "https://www.thenewsminute.com/karnataka/80-years-cinema-credits-roll-bengalurus-rex-theatre-it-shuts-dec-31-92851"
+     }
+    ],
+    "confidence": "verified",
+    "wow": 3
+   }
+  ]
+ },
+ {
+  "id": "bangalore-central-commissariat-road",
+  "name": "Bangalore Central (Commissariat Road)",
+  "lat": 12.971,
+  "lng": 77.6107,
+  "geoPrecision": "street",
+  "layers": [
+   {
+    "id": "31",
+    "yearStart": 2000,
+    "datePrecision": "year",
+    "type": "building",
+    "title": "Victoria Hotel demolished",
+    "hook": "A one-acre colonial bungalow hotel stood where Bangalore Central mall is",
+    "story": "Victoria Hotel was a colonial bungalow on a one-acre estate, with high roofs, monkey-top windows, 28 rooms, a bar and a restaurant known for appams, stew and English breakfasts. The building was razed in 2000, and Bangalore Central mall stands where it was.",
+    "sources": [
+     {
+      "label": "The News Minute",
+      "url": "https://www.thenewsminute.com/karnataka/victoria-hotel-remembering-bengaluru-s-forgotten-heritage-144881"
+     }
+    ],
+    "confidence": "verified",
+    "wow": 4
+   },
+   {
+    "id": "32",
+    "datePrecision": "undated",
+    "type": "story",
+    "title": "Legend: began as a reading room for Churchill",
+    "hook": "",
+    "story": "According to Maya Jayapal's 1997 book Bangalore: The Story of a City, the site began as a reading room built for Winston Churchill. This is reported lore, not an independently verified fact.",
+    "sources": [
+     {
+      "label": "The News Minute",
+      "url": "https://www.thenewsminute.com/karnataka/victoria-hotel-remembering-bengaluru-s-forgotten-heritage-144881"
+     }
+    ],
+    "confidence": "legend",
+    "wow": 4
+   }
+  ]
+ },
+ {
+  "id": "koshys",
+  "name": "Koshy's",
+  "lat": 12.97563,
+  "lng": 77.60147,
+  "geoPrecision": "building",
+  "layers": [
+   {
+    "id": "34",
+    "yearStart": 1940,
+    "datePrecision": "year",
+    "type": "business",
+    "title": "Koshy's starts as a bakery",
+    "hook": "Nehru, Queen Elizabeth II and Khrushchev ate here",
+    "story": "Koshy's began in 1940 as a bakery set up by P. O. Koshy from Kerala, and the restaurant was built next door in 1952. Jawaharlal Nehru, Queen Elizabeth II and Nikita Khrushchev have all dined here. It is still open.",
+    "sources": [
+     {
+      "label": "Wikipedia: Koshy's",
+      "url": "https://en.wikipedia.org/wiki/Koshy%27s"
+     }
+    ],
+    "confidence": "verified",
+    "wow": 4
+   }
+  ]
+ },
+ {
+  "id": "commercial-street",
+  "name": "Commercial Street",
+  "lat": 12.98221,
+  "lng": 77.60825,
+  "geoPrecision": "street",
+  "layers": [
+   {
+    "id": "35",
+    "yearStart": 1900,
+    "datePrecision": "year",
+    "type": "photo",
+    "title": "Commercial Street in 1900",
+    "hook": "",
+    "story": "Commercial Street, photographed by C. H. Doveton for the 1900 book Picturesque Bangalore. It is still one of the city's oldest and busiest shopping streets.",
+    "media": {
+     "src": "/media/35.jpg",
+     "width": 1200,
+     "height": 808,
+     "credit": "CH Doveton",
+     "licence": "CC BY-SA 3.0",
+     "licenceUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Commercial_Street,_Bangalore_by_CH_Doveton_(1900).jpg"
+    },
+    "sources": [
+     {
+      "label": "Wikimedia Commons",
+      "url": "https://commons.wikimedia.org/wiki/File:Commercial_Street%2C_Bangalore_by_CH_Doveton_(1900).jpg"
+     }
+    ],
+    "confidence": "verified",
+    "wow": 4
+   }
+  ]
+ },
+ {
+  "id": "st-andrews-kirk",
+  "name": "St Andrew's Kirk",
+  "lat": 12.97941,
+  "lng": 77.60426,
+  "geoPrecision": "building",
+  "layers": [
+   {
+    "id": "36",
+    "yearStart": 1866,
+    "datePrecision": "year",
+    "type": "building",
+    "title": "St Andrew's Kirk built",
+    "hook": "",
+    "story": "St Andrew's, the Presbyterian 'Kirk' of the Cantonment, dates from 1866 and followed Scottish customs, down to Burns Night. Photographed around 1890 by Bourne and Shepherd.",
+    "media": {
+     "src": "/media/36.jpg",
+     "width": 1200,
+     "height": 825,
+     "credit": "www.hindoostanrevisited.com/",
+     "licence": "Public domain",
+     "sourceUrl": "https://commons.wikimedia.org/wiki/File:A_View_of_St._Andrew,_Bangalore,_by_Bourne_and_Shepherd_(c.1890).jpg"
+    },
+    "sources": [
+     {
+      "label": "Wikipedia: St. Andrew's Church, Bengaluru",
+      "url": "https://en.wikipedia.org/wiki/St._Andrew%27s_Church%2C_Bengaluru"
+     }
+    ],
+    "confidence": "verified",
+    "wow": 3
+   }
+  ]
+ },
+ {
+  "id": "lok-bhavan-residency",
+  "name": "Lok Bhavan (Residency)",
+  "lat": 12.98226,
+  "lng": 77.59136,
+  "geoPrecision": "building",
+  "layers": [
+   {
+    "id": "38",
+    "yearStart": 1842,
+    "datePrecision": "year",
+    "type": "building",
+    "title": "The Residency",
+    "hook": "The Governor's home was the British Residency",
+    "story": "Today's Lok Bhavan, formerly Raj Bhavan, was the Bangalore Residency. After independence the Maharaja chose not to live here, and it became a state guesthouse before becoming the governor's residence. Originally single-storeyed, it gained a first floor in 1967. Pictured in 1894.",
+    "media": {
+     "src": "/media/38.jpg",
+     "width": 1200,
+     "height": 842,
+     "credit": "Unknown author",
+     "licence": "Public domain",
+     "sourceUrl": "https://commons.wikimedia.org/wiki/File:View_of_the_Residency,_Bangalore_from_the_Lee-Warner_Collection-_Souvenirs_of_Kolhapur._Installation_of_H.H._the_Maharajah,_1894.jpg"
+    },
+    "sources": [
+     {
+      "label": "Wikipedia: Lok Bhavan, Bengaluru",
+      "url": "https://en.wikipedia.org/wiki/Lok_Bhavan%2C_Bengaluru"
+     }
+    ],
+    "confidence": "verified",
+    "wow": 3
+   }
+  ]
+ },
+ {
+  "id": "vidhana-soudha",
+  "name": "Vidhana Soudha",
+  "lat": 12.97969,
+  "lng": 77.59066,
+  "geoPrecision": "building",
+  "layers": [
+   {
+    "id": "39",
+    "yearStart": 1956,
+    "datePrecision": "year",
+    "type": "story",
+    "title": "Vidhana Soudha completed; Churchill remark shaped its style",
+    "hook": "A Churchill remark about Gandhi pushed the government toward Dravidian architecture",
+    "story": "Vidhana Soudha was completed in 1956. By its recorded history, Churchill's 1931 description of Gandhi as a 'half-naked fakir' led the state government to choose a Dravidian style for the new legislature. Some of its builders were prisoners, released once the work was finished.",
+    "sources": [
+     {
+      "label": "Wikipedia: Vidhana Soudha",
+      "url": "https://en.wikipedia.org/wiki/Vidhana_Soudha"
+     }
+    ],
+    "confidence": "verified",
+    "wow": 5
+   }
+  ]
+ },
+ {
+  "id": "ulsoor-lake",
+  "name": "Ulsoor Lake",
+  "lat": 12.98147,
+  "lng": 77.61921,
+  "geoPrecision": "area",
+  "layers": [
+   {
+    "id": "40",
+    "yearStart": 1902,
+    "datePrecision": "year",
+    "type": "photo",
+    "title": "Ulsoor Tank with Kempe Gowda tower",
+    "hook": "",
+    "story": "Ulsoor Tank with the Kempe Gowda tower, photographed in 1902 for Col. James Henry Erskine Reid's album of Indian views.",
+    "media": {
+     "src": "/media/40.jpg",
+     "width": 1200,
+     "height": 917,
+     "credit": "Col. James Henry Erskine Reid (1856-1920)",
+     "licence": "Public domain",
+     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ulsoor_Tank_(with_Kempe_Gowda_Tower),_Bangalore,_from_the_Macnabb_Collection_(Col_James_Henry_Erskine_Reid)._Album_of_Indian_views,_taken_in_1902.jpg"
+    },
+    "sources": [
+     {
+      "label": "Wikimedia Commons",
+      "url": "https://commons.wikimedia.org/wiki/File:Ulsoor_Tank_(with_Kempe_Gowda_Tower)%2C_Bangalore%2C_from_the_Macnabb_Collection_(Col_James_Henry_Erskine_Reid)._Album_of_Indian_views%2C_taken_in_1902.jpg"
+     }
+    ],
+    "confidence": "verified",
+    "wow": 3
+   }
+  ]
+ },
+ {
+  "id": "holy-trinity-church",
+  "name": "Holy Trinity Church",
+  "lat": 12.97211,
+  "lng": 77.62033,
+  "geoPrecision": "building",
+  "layers": [
+   {
+    "id": "41",
+    "yearStart": 1851,
+    "datePrecision": "year",
+    "type": "building",
+    "title": "Church founded at the far end of South Parade",
+    "hook": "",
+    "story": "Holy Trinity was established at the far end of South Parade from St Mark's, around 1850-51. The Church of South India's Mysore Diocese gave it the name Holy Trinity Church in 1965. Pictured in 1922.",
+    "media": {
+     "src": "/media/41.png",
+     "width": 1200,
+     "height": 746,
+     "credit": "Rev. Frank Penny",
+     "licence": "Public domain",
+     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Holy_Trinity,_Bangalore_(Penny,_1922,_p.215).png"
+    },
+    "sources": [
+     {
+      "label": "Wikipedia: Holy Trinity Church, Bengaluru",
+      "url": "https://en.wikipedia.org/wiki/Holy_Trinity_Church%2C_Bengaluru"
+     },
+     {
+      "label": "Wikipedia: St. Mark's Cathedral, Bengaluru",
+      "url": "https://en.wikipedia.org/wiki/St._Mark%27s_Cathedral%2C_Bengaluru"
+     }
+    ],
+    "confidence": "verified",
+    "wow": 2
+   }
+  ]
+ },
+ {
+  "id": "bowring-institute",
+  "name": "Bowring Institute",
+  "lat": 12.97427,
+  "lng": 77.60046,
+  "geoPrecision": "building",
+  "layers": [
+   {
+    "id": "42",
+    "yearStart": 1888,
+    "datePrecision": "day",
+    "type": "building",
+    "title": "Foundation stone of current building",
+    "hook": "",
+    "story": "Bowring Institute was founded in 1868 by Benjamin Lewis Rice and named after Lewin Bentham Bowring. The foundation stone of its present 12-acre property on St Mark's Road was laid on 22 November 1888.",
+    "sources": [
+     {
+      "label": "Wikipedia: Bowring Institute",
+      "url": "https://en.wikipedia.org/wiki/Bowring_Institute"
+     }
+    ],
+    "confidence": "verified",
+    "wow": 2
+   }
+  ]
+ }
+]

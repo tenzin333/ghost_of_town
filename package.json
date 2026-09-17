@@ -1,0 +1,22 @@
+{
+  "name": "what-was-here",
+  "private": true,
+  "packageManager": "pnpm@12.4.1",
+  "scripts": {
+    "dev": "pnpm data && pnpm --filter @wwh/web dev",
+    "build": "pnpm data && pnpm --filter @wwh/web build",
+    "preview": "pnpm --filter @wwh/web preview",
+    "data": "pnpm --filter @wwh/ingest data",
+    "media": "pnpm --filter @wwh/ingest media",
+    "typecheck": "pnpm -r typecheck",
+    "db:up": "pnpm --filter @wwh/db up",
+    "db:down": "pnpm --filter @wwh/db down",
+    "db:generate": "pnpm --filter @wwh/db generate",
+    "db:migrate": "pnpm --filter @wwh/db migrate",
+    "db:seed": "pnpm data && pnpm --filter @wwh/db seed",
+    "db:test": "pnpm --filter @wwh/db test"
+  },
+  "devDependencies": {
+    "typescript": "^7.0.2"
+  }
+}

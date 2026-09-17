@@ -1,0 +1,9 @@
+{
+  "name": "@wwh/data",
+  "private": true,
+  "description": "Curated content: candidates.csv (source of truth), generated places.json and media.json.",
+  "exports": {
+    "./places.json": "./places.json",
+    "./media.json": "./media.json"
+  }
+}

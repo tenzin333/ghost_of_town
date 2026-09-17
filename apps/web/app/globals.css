@@ -1,0 +1,247 @@
+:root {
+  --ink: #0d0a07;
+  --panel: rgba(20, 15, 10, 0.94);
+  --line: rgba(233, 196, 140, 0.16);
+  --paper: #f3e6cf;
+  --muted: #b9a78b;
+  --amber: #e7ae62;
+  --amber-soft: rgba(231, 174, 98, 0.14);
+  --serif: var(--font-serif), Georgia, "Times New Roman", serif;
+  --sans: var(--font-sans), system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: var(--ink); color: var(--paper); font-family: var(--sans); }
+button { font: inherit; color: inherit; cursor: pointer; }
+button:disabled { cursor: default; opacity: 0.35; }
+a { color: var(--amber); }
+:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+
+.app { position: fixed; inset: 0; overflow: hidden; }
+/* Beats maplibre-gl.css's `.maplibregl-map { position: relative }` regardless of stylesheet order. */
+.app .map { position: absolute; inset: 0; }
+.maplibregl-ctrl-attrib { font-size: 10px; }
+.topbar, .eras, .hint, .notice { z-index: 3; }
+.panel { z-index: 5; }
+.panel-credit { display: none; }
+
+/* ---------- top chrome ---------- */
+.topbar {
+  position: absolute; top: 0; left: 0; right: 0;
+  display: flex; justify-content: space-between; align-items: flex-start; gap: 12px;
+  padding: 12px 12px 0;
+  pointer-events: none;
+}
+.topbar > * { pointer-events: auto; }
+.brand {
+  background: var(--panel); border: 1px solid var(--line); border-radius: 14px;
+  padding: 8px 14px 9px; box-shadow: 0 6px 24px rgba(0, 0, 0, 0.25);
+}
+.brand h1 { font-family: var(--serif); font-weight: 500; font-size: 26px; margin: 0; letter-spacing: -0.01em; }
+.brand p { margin: 2px 0 0; color: var(--muted); font-size: 13px; }
+.surprise {
+  background: var(--amber); color: #1b1108; border: 0; border-radius: 999px;
+  padding: 9px 16px; font-weight: 600; font-size: 14px; white-space: nowrap;
+  box-shadow: 0 4px 24px rgba(231, 174, 98, 0.3);
+}
+
+.eras {
+  position: absolute; top: 88px; left: 12px;
+  display: flex; gap: 6px; flex-wrap: wrap; max-width: calc(100% - 32px);
+}
+.eras button {
+  background: rgba(20, 15, 10, 0.8); border: 1px solid var(--line); border-radius: 999px;
+  padding: 5px 11px; font-size: 12.5px; color: var(--muted); backdrop-filter: blur(6px);
+}
+.eras button.on { color: #1b1108; background: var(--paper); border-color: var(--paper); }
+
+.hint {
+  position: absolute; left: 50%; bottom: 34px; transform: translateX(-50%); margin: 0;
+  padding: 9px 16px; border-radius: 999px; white-space: nowrap;
+  background: rgba(20, 15, 10, 0.85); border: 1px solid var(--line); color: var(--paper); font-size: 14px;
+  animation: breathe 3s ease-in-out infinite; pointer-events: none;
+}
+@keyframes breathe { 50% { box-shadow: 0 0 28px rgba(231, 174, 98, 0.35); } }
+
+.notice {
+  position: absolute; left: 50%; bottom: 28px; transform: translateX(-50%);
+  width: min(460px, calc(100% - 32px));
+  display: flex; flex-direction: column; gap: 8px;
+  background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px;
+  font-size: 14px; color: var(--muted); animation: rise 0.25s ease-out;
+}
+.notice strong { color: var(--paper); font-size: 15px; font-weight: 600; }
+.notice button { text-align: left; background: none; border: 0; padding: 0; color: var(--amber); font-weight: 600; font-size: 15px; }
+
+/* ---------- panel ---------- */
+.panel {
+  position: absolute; top: 12px; right: 12px; bottom: 12px; width: 420px;
+  display: flex; flex-direction: column;
+  background: var(--panel); border: 1px solid var(--line); border-radius: 18px;
+  backdrop-filter: blur(10px); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  animation: slide 0.3s ease-out;
+}
+.panel-grip { display: none; }
+.panel-scroll { overflow-y: auto; flex: 1; overscroll-behavior: contain; }
+.close {
+  position: absolute; top: 10px; right: 12px; z-index: 2;
+  background: rgba(0, 0, 0, 0.45); border: 0; border-radius: 50%; width: 32px; height: 32px; font-size: 22px; line-height: 1;
+}
+.panel-actions { display: flex; gap: 8px; padding: 10px 14px 14px; border-top: 1px solid var(--line); }
+.panel-actions button {
+  flex: 1; background: var(--amber-soft); border: 1px solid var(--line); border-radius: 10px; padding: 10px; font-weight: 600; font-size: 14px;
+}
+.panel-actions button:first-child { color: var(--amber); }
+
+/* ---------- stack ---------- */
+.stack-head { padding: 22px 56px 10px 22px; }
+.eyebrow { margin: 0; color: var(--amber); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; }
+.stack-head h2 { font-family: var(--serif); font-weight: 500; font-size: 30px; line-height: 1.1; margin: 6px 0 0; }
+.precision { margin: 6px 0 0; font-size: 12px; color: var(--muted); }
+
+.strata { list-style: none; margin: 8px 0 18px; padding: 0 14px; }
+.stratum {
+  --depth: 0;
+  position: relative;
+  border-left: 2px solid color-mix(in srgb, var(--amber) calc((1 - var(--depth)) * 70% + 15%), #3b2a18);
+  margin-left: 58px;
+}
+.stratum button, .stratum.surface {
+  display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; width: 100%; text-align: left;
+  padding: 12px 10px 12px 16px; background: none; border: 0; border-radius: 0 10px 10px 0;
+  /* Deeper layers drift toward sepia. */
+  background: linear-gradient(90deg, rgba(120, 80, 40, calc(var(--depth) * 0.22)), transparent 70%);
+}
+.stratum button:hover { background-color: var(--amber-soft); }
+.stratum-year {
+  position: absolute; left: -62px; top: 13px; width: 52px; text-align: right;
+  font-family: var(--serif); font-size: 15px; color: var(--paper); font-variant-numeric: tabular-nums;
+}
+.stratum-title { font-size: 15px; line-height: 1.35; grid-column: 1; }
+.stratum-hook { display: block; color: var(--muted); font-size: 13px; margin-top: 3px; }
+.stratum-icons { grid-column: 2; grid-row: 1; color: var(--amber); font-size: 12px; display: flex; gap: 4px; }
+.stratum.surface { border-left-style: dashed; color: var(--paper); }
+.stratum.surface button { background: none; }
+.stratum.surface button:hover { background-color: var(--amber-soft); }
+.stratum.surface .stratum-year { color: var(--amber); font-family: var(--sans); font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; }
+.stratum.surface .stratum-title { font-size: 14px; }
+.stratum.surface .stratum-hook { font-size: 12.5px; font-style: italic; }
+
+/* ---------- today (Street View) ---------- */
+.today-head { padding: 0 22px 12px; }
+.today-note { margin: 4px 0 0; font-size: 13px; color: var(--muted); }
+.today-frame {
+  display: block; width: calc(100% - 36px); margin: 0 18px; height: min(58vh, 460px);
+  border: 1px solid var(--line); border-radius: 12px; background: #16110b;
+}
+.today-empty {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+  box-sizing: border-box; padding: 20px; text-align: center; color: var(--muted); font-size: 14px;
+}
+.today-credit { font-size: 11px; color: var(--muted); padding: 8px 18px 14px; margin: 0; }
+.today-credit a { color: var(--muted); }
+.stratum.dim { opacity: 0.35; }
+
+/* ---------- card ---------- */
+.card { --depth: 0; }
+.back { margin: 14px 18px 10px; }
+.link { background: none; border: 0; padding: 0; color: var(--amber); font-size: 14px; }
+.card-media { margin: 0; }
+.card-media img {
+  display: block; width: 100%; height: auto; max-height: 46vh; object-fit: cover;
+  filter: sepia(calc(var(--depth) * 0.25)) contrast(1.02);
+}
+.card-media figcaption { font-size: 11px; color: var(--muted); padding: 6px 18px 0; }
+.card-media figcaption a { color: var(--muted); }
+.card-plate {
+  margin: 0 18px; height: 150px; border-radius: 12px; border: 1px solid var(--line);
+  display: flex; flex-direction: column; justify-content: center; align-items: center;
+  background: radial-gradient(circle at 50% 40%, rgba(231, 174, 98, 0.18), transparent 70%), #17110b;
+}
+.plate-type { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+.plate-year { font-family: var(--serif); font-size: 54px; line-height: 1.1; color: var(--paper); }
+.card-body { padding: 16px 22px 8px; }
+.card-meta { display: flex; align-items: center; gap: 10px; }
+.year { font-family: var(--serif); font-size: 20px; color: var(--amber); }
+.badge { font-size: 11px; padding: 3px 8px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); }
+.badge-disputed { color: #f0c46b; border-color: rgba(240, 196, 107, 0.4); }
+.badge-legend { color: #d7a6f0; border-color: rgba(215, 166, 240, 0.4); }
+.badge-unreviewed { color: #9fc3e6; border-color: rgba(159, 195, 230, 0.4); }
+.live-note { margin: 6px 0 0; font-size: 12px; color: #9fc3e6; }
+.place-info { margin: 6px 0 0; font-size: 13px; color: var(--muted); display: flex; flex-direction: column; gap: 1px; }
+.place-category { color: var(--paper); text-transform: capitalize; }
+.place-links { margin: 6px 0 0; font-size: 12.5px; display: flex; gap: 14px; }
+.no-history { padding: 4px 22px 16px 22px; font-size: 14px; color: var(--muted); }
+.no-history h3 { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 14px 0 6px; font-weight: 500; }
+.no-history ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.card-body h2 { font-family: var(--serif); font-weight: 500; font-size: 25px; line-height: 1.2; margin: 8px 0 10px; }
+.story { font-size: 15.5px; line-height: 1.6; margin: 0; color: #eadcc4; }
+.sources { margin-top: 18px; }
+.sources h3 { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0 0 6px; font-weight: 500; }
+.sources ul { margin: 0; padding: 0; list-style: none; font-size: 13.5px; }
+.sources li { padding: 3px 0; }
+.sources a { text-decoration: none; }
+.card-nav {
+  display: flex; justify-content: space-between; align-items: center; gap: 8px;
+  padding: 14px 18px 18px; font-size: 12px; color: var(--muted);
+}
+.card-nav button { background: var(--amber-soft); border: 1px solid var(--line); border-radius: 999px; padding: 7px 12px; font-size: 13px; }
+
+/* ---------- red pin (GeoGuessr-style) ---------- */
+.red-pin { width: 30px; height: 42px; pointer-events: none; }
+.red-pin-drop { position: relative; z-index: 1; transform-origin: 50% 100%; filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.35)); }
+.red-pin-drop svg { display: block; }
+.red-pin-shadow {
+  position: absolute; left: 50%; bottom: -3px; width: 16px; height: 6px; margin-left: -8px;
+  border-radius: 50%; background: rgba(0, 0, 0, 0.35); filter: blur(1px);
+}
+.red-pin-drop.dropping { animation: pin-drop 0.55s cubic-bezier(0.3, 0.9, 0.4, 1) both; }
+@keyframes pin-drop {
+  0% { transform: translateY(-60px) scaleY(1); opacity: 0; }
+  55% { transform: translateY(0) scaleY(1); opacity: 1; }
+  70% { transform: translateY(0) scaleY(0.82) scaleX(1.12); }
+  85% { transform: translateY(-6px) scaleY(1.03); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+.debug {
+  position: absolute; left: 12px; bottom: 40px; max-width: 60vw; margin: 0; padding: 8px;
+  background: rgba(0, 0, 0, 0.8); color: #9f9; font-size: 10px; pointer-events: none; white-space: pre-wrap;
+}
+
+@keyframes slide { from { opacity: 0; transform: translateX(16px); } }
+@keyframes rise { from { opacity: 0; transform: translate(-50%, 10px); } }
+
+/* ---------- phone: bottom sheet ---------- */
+@media (max-width: 760px) {
+  .brand h1 { font-size: 21px; }
+  .brand p { font-size: 12px; }
+  .surprise { padding: 8px 12px; font-size: 13px; }
+  .eras { top: 80px; }
+  .panel {
+    top: auto; left: 0; right: 0; bottom: 0; width: auto; height: 62vh;
+    border-radius: 18px 18px 0 0; border-bottom: 0; animation: sheet 0.3s ease-out;
+  }
+  .panel-grip { display: block; width: 40px; height: 4px; border-radius: 2px; background: var(--line); margin: 8px auto 0; }
+  .stack-head { padding-top: 10px; }
+  .stack-head h2 { font-size: 26px; }
+  .card-media img { max-height: 30vh; }
+  .card-plate { height: 96px; }
+  .plate-year { font-size: 40px; }
+  .today-frame { height: 34vh; }
+  .today-head { padding-bottom: 8px; }
+  .notice { bottom: 16px; }
+  .panel-actions { padding-bottom: 6px; }
+  /* The sheet covers the map's own attribution, so repeat it inside the sheet. */
+  .panel-credit { display: block; margin: 0; padding: 0 14px max(8px, env(safe-area-inset-bottom)); font-size: 10px; color: var(--muted); text-align: center; }
+  .panel-credit a { color: var(--muted); }
+  .maplibregl-ctrl-bottom-left { display: none; }
+  .hint { bottom: 56px; }
+  @keyframes sheet { from { transform: translateY(40px); opacity: 0; } }
+}
+
+/* Dev-only source switcher in "Today" (Google keyless embed vs official sources). */
+.today-tabs { display: flex; gap: 6px; margin-top: 10px; }
+.today-tabs button { background: none; border: 1px solid var(--line); border-radius: 999px; padding: 4px 11px; font-size: 12.5px; color: var(--muted); }
+.today-tabs button.on { color: #1b1108; background: var(--paper); border-color: var(--paper); }

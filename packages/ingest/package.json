@@ -1,0 +1,19 @@
+{
+  "name": "@wwh/ingest",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "data": "tsx src/build-data.mts",
+    "media": "tsx src/fetch-media.mts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@wwh/schema": "workspace:*",
+    "csv-parse": "^7.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^26.5.1",
+    "tsx": "^4.23.13",
+    "typescript": "^7.0.2"
+  }
+}
